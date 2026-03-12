@@ -29,16 +29,16 @@ export function Footer() {
             </ul>
           </div>
         </div>
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-8 border-t border-border">
-            <div className="text-sm text-muted-foreground font-medium flex gap-4">
-              <Link to="/privacy" className="hover:text-foreground transition-colors">Privacy Policy</Link>
-              <Link to="/terms" className="hover:text-foreground transition-colors">Terms of Service</Link>
-            </div>
-            <div className="flex items-center gap-4 text-sm text-muted-foreground font-medium">
-              <span>© {new Date().getFullYear()} Olivia's Exclusive. All rights reserved.</span>
-              <Link to="/sign-in" className="hover:text-foreground transition-colors mix-blend-multiply opacity-50">Admin</Link>
-            </div>
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-8 border-t border-border">
+          <div className="text-sm text-muted-foreground font-medium flex gap-4">
+            <Link to="/privacy" className="hover:text-foreground transition-colors">Privacy Policy</Link>
+            <Link to="/terms" className="hover:text-foreground transition-colors">Terms of Service</Link>
           </div>
+          <div className="flex items-center gap-4 text-sm text-muted-foreground font-medium">
+            <span>© {new Date().getFullYear()} Olivia's Exclusive. Made with ❤️ by Anshuu.</span>
+            <Link to="/sign-in" className="hover:text-foreground transition-colors mix-blend-multiply opacity-50">Admin</Link>
+          </div>
+        </div>
       </div>
     </footer>
   )
