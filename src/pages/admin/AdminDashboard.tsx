@@ -41,6 +41,7 @@ export function AdminDashboard() {
   const [isProductModalOpen, setIsProductModalOpen] = useState(false)
   const [editingProduct, setEditingProduct] = useState<Product | null>(null)
   const [file, setFile] = useState<File | null>(null)
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null)
 
   const [formData, setFormData] = useState({
     name: '',
@@ -144,7 +145,15 @@ export function AdminDashboard() {
   }
 
   const handleDeleteProduct = async (product: Product) => {
-    if (!window.confirm('Are you sure you want to delete this product?')) return
+    // Two-tap delete: first tap sets confirmDeleteId, second tap actually deletes
+    if (confirmDeleteId !== product.id) {
+      setConfirmDeleteId(product.id)
+      // Auto-dismiss after 3 seconds if no confirmation
+      setTimeout(() => setConfirmDeleteId(prev => prev === product.id ? null : prev), 3000)
+      return
+    }
+
+    setConfirmDeleteId(null)
 
     try {
       // extract file name from full URL
@@ -448,17 +457,21 @@ export function AdminDashboard() {
                             <div className="flex items-center justify-end gap-1">
                               <motion.button
                                 onClick={() => openEditModal(product)}
-                                className="p-2 rounded-lg text-muted-foreground hover:text-blue-500 hover:bg-blue-50 transition-all"
-                                whileHover={{ scale: 1.1 }}
+                                className="p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-muted-foreground hover:text-blue-500 hover:bg-blue-50 active:bg-blue-100 transition-all touch-manipulation"
                                 whileTap={{ scale: 0.9 }}
                               >
                                 <Edit2 className="w-4 h-4" />
                               </motion.button>
                               <motion.button
                                 onClick={() => handleDeleteProduct(product)}
-                                className="p-2 rounded-lg text-muted-foreground hover:text-red-500 hover:bg-red-50 transition-all"
-                                whileHover={{ scale: 1.1 }}
+                                className={`p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg transition-all touch-manipulation ${
+                                  confirmDeleteId === product.id
+                                    ? 'bg-red-500 text-white shadow-lg shadow-red-500/30'
+                                    : 'text-muted-foreground hover:text-red-500 hover:bg-red-50 active:bg-red-100'
+                                }`}
                                 whileTap={{ scale: 0.9 }}
+                                animate={confirmDeleteId === product.id ? { scale: [1, 1.1, 1] } : {}}
+                                transition={{ duration: 0.3 }}
                               >
                                 <Trash2 className="w-4 h-4" />
                               </motion.button>
