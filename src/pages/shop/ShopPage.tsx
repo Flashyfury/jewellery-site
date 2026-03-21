@@ -33,7 +33,7 @@ export function ShopPage() {
   }, [])
 
   return (
-    <div className="w-full min-h-screen bg-background pt-12 pb-24">
+    <div className="w-full min-h-screen bg-background pt-24 md:pt-28 pb-24">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-serif mb-4">The Collection</h1>
@@ -100,7 +100,7 @@ export function ShopPage() {
                     <h3 className="text-lg font-serif text-foreground">{product.name}</h3>
                   </Link>
                   <div className="w-full flex justify-between items-center mt-2">
-                    <span className="text-sm font-medium text-muted-foreground">${product.price.toFixed(2)}</span>
+                    <span className="text-sm font-medium text-muted-foreground">₹{product.price.toFixed(2)}</span>
                     <Button 
                       variant="ghost" 
                       onClick={() => addToCart(product)}

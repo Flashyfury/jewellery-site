@@ -15,6 +15,7 @@ CREATE TABLE orders (
   customer_id TEXT NOT NULL, -- Clerk user ID
   customer_name TEXT NOT NULL,
   customer_email TEXT NOT NULL,
+  customer_phone TEXT,
   total_amount NUMERIC(10, 2) NOT NULL,
   status TEXT NOT NULL DEFAULT 'pending',
   created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL

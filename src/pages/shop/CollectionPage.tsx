@@ -89,7 +89,7 @@ export function CollectionPage() {
   return (
     <div className="w-full">
       {/* Hero Banner */}
-      <section className={`relative min-h-[55vh] flex items-center bg-gradient-to-br ${heroBg} overflow-hidden`}>
+      <section className={`relative min-h-[55vh] flex items-center bg-gradient-to-br ${heroBg} overflow-hidden pt-16 md:pt-20`}>
         {/* Floating BG image */}
         {heroImage && (
           <motion.img
@@ -136,7 +136,7 @@ export function CollectionPage() {
                 transition={{ duration: 0.9, delay: 0.2 }}
                 className="text-6xl md:text-8xl font-serif tracking-tight text-foreground mb-4"
               >
-                {category?.emoji} {category?.name}
+                {category?.name}
               </motion.h1>
               {category?.description && (
                 <motion.p
@@ -168,7 +168,7 @@ export function CollectionPage() {
               animate={{ opacity: 1, y: 0 }}
               className="text-center py-32"
             >
-              <p className="text-6xl mb-6">{category?.emoji || '✨'}</p>
+              <p className="text-6xl mb-6">✨</p>
               <h2 className="text-3xl font-serif mb-4 text-foreground">Coming Soon</h2>
               <p className="text-muted-foreground mb-8 max-w-sm mx-auto">
                 The {category?.name} collection is being curated. Check back soon!
@@ -223,7 +223,7 @@ export function CollectionPage() {
                         <h3 className="text-lg font-serif text-foreground">{product.name}</h3>
                       </Link>
                       <div className="w-full flex justify-between items-center mt-2">
-                        <span className="text-sm font-medium text-muted-foreground">${product.price.toFixed(2)}</span>
+                        <span className="text-sm font-medium text-muted-foreground">₹{product.price.toFixed(2)}</span>
                         <Button
                           variant="ghost"
                           onClick={() => addToCart(product)}

@@ -25,7 +25,7 @@ export function AdminNotificationProvider({ children }: { children: React.ReactN
         (payload) => {
           console.log('New Order Received!', payload)
           toast.success(`New Order Received!`, {
-            description: `Order from ${payload.new.customer_name} for $${payload.new.total_amount}.`,
+            description: `Order from ${payload.new.customer_name} for ₹${payload.new.total_amount}.`,
             duration: 8000,
           })
           

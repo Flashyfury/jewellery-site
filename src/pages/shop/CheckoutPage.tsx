@@ -15,6 +15,7 @@ export function CheckoutPage() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     address: '',
     city: '',
     pincode: '',
@@ -39,6 +40,7 @@ export function CheckoutPage() {
           customer_id: 'guest',
           customer_name: formData.name,
           customer_email: formData.email,
+          customer_phone: formData.phone,
           total_amount: cartTotal,
           status: 'pending'
         })
@@ -90,7 +92,7 @@ export function CheckoutPage() {
   }
 
   return (
-    <div className="w-full min-h-screen bg-background pt-12 pb-24">
+    <div className="w-full min-h-screen bg-background pt-24 md:pt-28 pb-24">
       <div className="container mx-auto px-6 max-w-6xl">
         <h1 className="text-4xl font-serif mb-12">Checkout</h1>
 
@@ -118,7 +120,7 @@ export function CheckoutPage() {
 
                   <div className="flex-1">
                     <h3 className="font-serif text-lg">{item.name}</h3>
-                    <p className="text-sm text-muted-foreground mt-1">${item.price.toFixed(2)}</p>
+                    <p className="text-sm text-muted-foreground mt-1">₹{item.price.toFixed(2)}</p>
 
                     <div className="flex items-center gap-4 mt-4">
                       <div className="flex items-center border border-border rounded-full px-3 py-1">
@@ -144,7 +146,7 @@ export function CheckoutPage() {
                   </div>
 
                   <div className="text-right font-medium">
-                    ${(item.price * item.quantity).toFixed(2)}
+                    ₹{(item.price * item.quantity).toFixed(2)}
                   </div>
                 </motion.div>
               ))}
@@ -159,7 +161,7 @@ export function CheckoutPage() {
               <div className="space-y-4 text-sm mb-6 border-b border-border pb-6">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Subtotal</span>
-                  <span>${cartTotal.toFixed(2)}</span>
+                  <span>₹{cartTotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Shipping</span>
@@ -169,7 +171,7 @@ export function CheckoutPage() {
 
               <div className="flex justify-between items-center mb-8">
                 <span className="font-serif text-xl">Total</span>
-                <span className="font-serif text-2xl">${cartTotal.toFixed(2)}</span>
+                <span className="font-serif text-2xl">₹{cartTotal.toFixed(2)}</span>
               </div>
 
               <form onSubmit={handlePlaceOrder} className="space-y-6">
@@ -181,6 +183,10 @@ export function CheckoutPage() {
                   <div className="space-y-2">
                     <label className="text-sm font-medium text-muted-foreground ml-2">Email Address</label>
                     <Input required type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder="jane@example.com" className="bg-white/50" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-muted-foreground ml-2">Phone Number</label>
+                    <Input required type="tel" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} placeholder="+91 98765 43210" className="bg-white/50" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-medium text-muted-foreground ml-2">Delivery Address (Mock)</label>

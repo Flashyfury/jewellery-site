@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { useState, useEffect, useRef } from 'react'
 import { supabase } from '../../lib/supabase'
 import type { Category } from '../../types'
-import { Sparkles, ArrowRight, Diamond, Star } from 'lucide-react'
+import { Sparkles, ArrowRight, Diamond, Star, Gem, Leaf, Shield } from 'lucide-react'
 
 const heroImages: Record<string, string> = {
   rings: '/images/category_ring_1_1772952763774.png',
@@ -25,17 +25,17 @@ const particles = [
 ]
 
 const categoryGradients = [
-  'from-purple-500/20 via-pink-500/10 to-transparent',
-  'from-amber-500/20 via-orange-500/10 to-transparent',
-  'from-emerald-500/20 via-teal-500/10 to-transparent',
-  'from-blue-500/20 via-indigo-500/10 to-transparent',
+  'from-rose-900/30 via-red-900/10 to-transparent',
+  'from-emerald-900/30 via-green-900/10 to-transparent',
+  'from-amber-900/30 via-orange-900/10 to-transparent',
+  'from-slate-900/30 via-blue-900/10 to-transparent',
 ]
 
 const categoryAccents = [
-  { border: 'group-hover:border-purple-400/50', glow: 'group-hover:shadow-[0_0_30px_rgba(168,85,247,0.15)]' },
-  { border: 'group-hover:border-amber-400/50', glow: 'group-hover:shadow-[0_0_30px_rgba(245,158,11,0.15)]' },
-  { border: 'group-hover:border-emerald-400/50', glow: 'group-hover:shadow-[0_0_30px_rgba(16,185,129,0.15)]' },
-  { border: 'group-hover:border-blue-400/50', glow: 'group-hover:shadow-[0_0_30px_rgba(59,130,246,0.15)]' },
+  { border: 'group-hover:border-rose-800/50', glow: 'group-hover:shadow-[0_0_30px_rgba(159,18,57,0.15)]' },
+  { border: 'group-hover:border-emerald-800/50', glow: 'group-hover:shadow-[0_0_30px_rgba(6,95,70,0.15)]' },
+  { border: 'group-hover:border-amber-700/50', glow: 'group-hover:shadow-[0_0_30px_rgba(180,83,9,0.15)]' },
+  { border: 'group-hover:border-slate-700/50', glow: 'group-hover:shadow-[0_0_30px_rgba(51,65,85,0.15)]' },
 ]
 
 export function HomePage() {
@@ -57,26 +57,26 @@ export function HomePage() {
   }, [])
 
   return (
-    <div className="w-full overflow-hidden">
+    <div className="relative w-full overflow-hidden">
       {/* ===== HERO SECTION ===== */}
       <motion.section
         ref={heroRef}
         style={{ opacity: heroOpacity }}
-        className="relative min-h-[90vh] flex items-center justify-center overflow-hidden"
+        className="relative min-h-[100dvh] md:min-h-[90vh] flex items-center justify-center overflow-hidden pt-16 md:pt-20"
       >
         {/* Animated gradient background */}
         <div className="absolute inset-0 animated-gradient-bg" />
 
-        {/* Radial color accents */}
-        <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full bg-gradient-to-br from-purple-300/20 to-pink-200/10 blur-3xl" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-gradient-to-br from-amber-300/20 to-orange-200/10 blur-3xl" />
-        <div className="absolute top-[40%] right-[20%] w-[300px] h-[300px] rounded-full bg-gradient-to-br from-emerald-300/15 to-teal-200/10 blur-3xl" />
+        {/* Radial color accents - Deep Indian Jewel Tones */}
+        <div className="absolute top-[-20%] left-[-10%] w-[300px] md:w-[600px] h-[300px] md:h-[600px] rounded-full bg-gradient-to-br from-rose-900/15 to-red-950/10 blur-3xl opacity-70" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[250px] md:w-[500px] h-[250px] md:h-[500px] rounded-full bg-gradient-to-br from-amber-700/15 to-orange-900/10 blur-3xl opacity-60" />
+        <div className="absolute top-[40%] right-[20%] w-[150px] md:w-[300px] h-[150px] md:h-[300px] rounded-full bg-gradient-to-br from-emerald-900/15 to-teal-950/10 blur-3xl opacity-70" />
 
         {/* Floating sparkle particles */}
         {particles.map((p, i) => (
           <motion.div
             key={i}
-            className="absolute rounded-full bg-gradient-to-br from-amber-400/60 to-yellow-300/40"
+            className="absolute rounded-full bg-gradient-to-br from-amber-500/70 to-yellow-600/50"
             style={{ left: p.x, top: p.y, width: p.size, height: p.size }}
             animate={{
               y: [0, -30, 0],
@@ -101,7 +101,7 @@ export function HomePage() {
           <motion.img
             src="/images/floating_necklace_1772919070657.png"
             alt="Silver Necklace"
-            className="absolute top-[10%] left-[10%] w-64 md:w-96 opacity-50 mix-blend-multiply object-contain"
+            className="absolute top-[15%] left-[5%] w-36 md:w-96 opacity-30 md:opacity-50 mix-blend-multiply object-contain"
             animate={{
               y: [0, -30, 0],
               x: [0, 15, 0],
@@ -113,7 +113,7 @@ export function HomePage() {
           <motion.img
             src="/images/floating_earrings_1772919189881.png"
             alt="Gold Earrings"
-            className="absolute bottom-[20%] right-[15%] w-56 md:w-80 opacity-50 mix-blend-multiply object-contain"
+            className="absolute bottom-[15%] right-[5%] w-32 md:w-80 opacity-25 md:opacity-50 mix-blend-multiply object-contain"
             animate={{
               y: [0, 40, 0],
               x: [0, -20, 0],
@@ -136,59 +136,59 @@ export function HomePage() {
         </motion.div>
 
         {/* Hero Content */}
-        <div className="container relative z-20 mx-auto px-6 py-20 flex flex-col items-center text-center">
+        <div className="container relative z-20 mx-auto px-5 md:px-6 py-10 md:py-20 flex flex-col items-center text-center">
           {/* Animated badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="flex items-center gap-2 px-5 py-2 rounded-full glass mb-8 border border-amber-300/30"
+            className="flex items-center gap-2 px-4 md:px-6 py-2 md:py-2.5 rounded-full glass mb-6 md:mb-8 border border-amber-600/30 bg-background/40 backdrop-blur-md"
           >
-            <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-            <span className="text-xs font-semibold tracking-[0.3em] uppercase text-foreground/80">New Collection 2026</span>
-            <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+            <Sparkles className="w-4 h-4 text-amber-600" />
+            <span className="text-[10px] md:text-xs font-semibold tracking-[0.2em] md:tracking-[0.3em] uppercase text-foreground/90">Heritage Collection</span>
+            <Sparkles className="w-4 h-4 text-amber-600" />
           </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
             animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
             transition={{ duration: 1, delay: 0.2, ease: 'easeOut' }}
-            className="text-6xl md:text-8xl md:leading-[1.1] font-serif mb-8 max-w-4xl tracking-tight text-foreground"
+            className="text-[2.5rem] leading-[1.15] sm:text-5xl md:text-7xl lg:text-8xl md:leading-[1.1] font-serif mb-5 md:mb-8 max-w-4xl tracking-tight text-foreground"
           >
-            Modern Elegance. <br />
-            <span className="gradient-text-gold italic font-light">Timeless Vibe.</span>
+            Elegance Rooted in <br />
+            <span className="bg-gradient-to-r from-amber-700 via-yellow-600 to-amber-700 bg-clip-text text-transparent italic font-light drop-shadow-sm">Tradition.</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.5 }}
-            className="max-w-xl mx-auto text-lg md:text-xl mb-12 text-muted-foreground font-light leading-relaxed"
+            className="max-w-xl mx-auto text-base md:text-xl mb-8 md:mb-12 text-muted-foreground font-light leading-relaxed px-2 md:px-0"
           >
-            Curated statement pieces for the bold and beautiful. Handcrafted with precision, worn with attitude.
+            Intricate karigari meets timeless sophistication. Fine jewelry born from deep-rooted cultural heritage and masterful craftsmanship.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}
-            className="flex flex-col sm:flex-row gap-4"
+            className="flex flex-col sm:flex-row gap-3 md:gap-4 w-full sm:w-auto"
           >
             <Link
               to="/shop"
-              className="group relative inline-flex items-center justify-center gap-3 px-12 py-5 font-medium text-white bg-gradient-to-r from-foreground via-foreground to-foreground/90 rounded-full overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_60px_-15px_rgba(212,165,116,0.4)]"
+              className="group relative inline-flex items-center justify-center gap-3 px-8 md:px-12 py-4 md:py-5 font-medium text-white bg-gradient-to-r from-foreground via-foreground to-foreground/90 rounded-full overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_60px_-15px_rgba(212,165,116,0.4)]"
             >
               <span className="absolute inset-0 bg-gradient-to-r from-amber-600/20 via-purple-600/20 to-pink-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <span className="relative flex items-center gap-2">
+              <span className="relative flex items-center gap-2 text-neutral-900 text-sm md:text-base">
                 Shop The Drop
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </span>
             </Link>
             <Link
               to="/collections/rings"
-              className="group inline-flex items-center justify-center gap-2 px-10 py-5 font-medium text-foreground rounded-full border-2 border-border/60 hover:border-amber-400/50 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_10px_40px_-10px_rgba(212,165,116,0.2)] glass"
+              className="group inline-flex items-center justify-center gap-2 px-8 md:px-10 py-4 md:py-5 font-medium text-foreground rounded-full border border-border/60 hover:border-amber-700/50 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_10px_40px_-10px_rgba(180,83,9,0.2)] glass bg-background/50 backdrop-blur-sm text-sm md:text-base"
             >
-              <Diamond className="w-4 h-4 text-amber-500 group-hover:rotate-12 transition-transform" />
+              <Diamond className="w-4 h-4 text-amber-700 group-hover:rotate-12 transition-transform" />
               Explore Collections
             </Link>
           </motion.div>
@@ -198,7 +198,7 @@ export function HomePage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 1.2 }}
-            className="flex flex-wrap items-center justify-center gap-6 mt-16 text-xs text-muted-foreground/70 uppercase tracking-widest"
+            className="flex flex-wrap items-center justify-center gap-4 md:gap-6 mt-10 md:mt-16 text-[10px] md:text-xs text-muted-foreground/70 uppercase tracking-wider md:tracking-widest"
           >
             <div className="flex items-center gap-1.5">
               <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
@@ -240,9 +240,9 @@ export function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
-              className="text-4xl md:text-6xl font-serif"
+              className="text-4xl md:text-6xl font-serif text-foreground"
             >
-              Curated <span className="gradient-text-gold">For You</span>
+              Curated <span className="text-amber-700 italic font-light drop-shadow-sm">With Elegance</span>
             </motion.h2>
           </div>
 
@@ -278,7 +278,7 @@ export function HomePage() {
 
                     {/* Content */}
                     <div className="absolute bottom-0 left-0 right-0 p-6 transform transition-transform duration-500 group-hover:translate-y-[-8px]">
-                      <p className="text-white/80 text-xs font-semibold uppercase tracking-widest mb-1">{cat.emoji} Collection</p>
+                      <p className="text-white/80 text-xs font-semibold uppercase tracking-widest mb-1">Collection</p>
                       <p className="text-white text-2xl font-serif">{cat.name}</p>
                     </div>
 
@@ -300,16 +300,19 @@ export function HomePage() {
       </section>
 
       {/* ===== FEATURES / TRUST BANNER ===== */}
-      <section className="py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-foreground via-foreground/95 to-foreground" />
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSA2MCAwIEwgMCAwIDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjAzKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-50" />
+      <section className="py-20 relative overflow-hidden bg-rose-950 text-white">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSA2MCAwIEwgMCAwIDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-30" />
+
+        {/* Decorative corner accents */}
+        <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-amber-500/20 to-transparent rounded-br-full" />
+        <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-amber-500/20 to-transparent rounded-tl-full" />
 
         <div className="container mx-auto px-6 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { icon: '💎', title: 'Premium Quality', desc: 'Every piece meets the highest standards of craftsmanship', gradient: 'from-purple-400 to-pink-400' },
-              { icon: '🌿', title: 'Ethically Sourced', desc: 'Responsibly sourced materials from trusted suppliers', gradient: 'from-emerald-400 to-teal-400' },
-              { icon: '✨', title: 'Lifetime Warranty', desc: 'We stand behind every piece we create', gradient: 'from-amber-400 to-orange-400' },
+              { icon: Gem, title: 'Master Karigars', desc: 'Crafted by artisans with generations of expertise', gradient: 'from-amber-200 to-amber-400', color: 'text-amber-300' },
+              { icon: Leaf, title: 'Ethically Sourced', desc: 'Purity and sustainability in every precious stone', gradient: 'from-amber-200 to-amber-400', color: 'text-amber-300' },
+              { icon: Shield, title: 'Heritage Guarantee', desc: 'Timeless quality designed to be passed down', gradient: 'from-amber-200 to-amber-400', color: 'text-amber-300' },
             ].map((feature, i) => (
               <motion.div
                 key={feature.title}
@@ -320,11 +323,11 @@ export function HomePage() {
                 className="text-center group"
               >
                 <motion.div
-                  className="text-4xl mb-4 inline-block"
+                  className="text-4xl mb-4 inline-flex items-center justify-center p-4 rounded-full glass bg-white/5 border border-white/10 shadow-xl"
                   whileHover={{ scale: 1.2, rotate: 10 }}
                   transition={{ type: 'spring', stiffness: 300 }}
                 >
-                  {feature.icon}
+                  <feature.icon className={`w-8 h-8 ${feature.color}`} />
                 </motion.div>
                 <h3 className={`text-lg font-serif mb-2 bg-gradient-to-r ${feature.gradient} bg-clip-text text-transparent`}>
                   {feature.title}

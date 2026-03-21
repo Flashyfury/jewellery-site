@@ -216,7 +216,7 @@ export function AdminDashboard() {
 
   const getStatValue = (key: string) => {
     switch (key) {
-      case 'revenue': return `$${orders.reduce((acc, order) => acc + order.total_amount, 0).toFixed(2)}`
+      case 'revenue': return `₹${orders.reduce((acc, order) => acc + order.total_amount, 0).toFixed(2)}`
       case 'orders': return orders.length.toString()
       case 'products': return products.length.toString()
       default: return '0'
@@ -224,7 +224,7 @@ export function AdminDashboard() {
   }
 
   return (
-    <div className="w-full min-h-screen bg-muted/10 pt-10 pb-24 flex flex-col md:flex-row">
+    <div className="w-full min-h-screen bg-muted/10 pt-24 md:pt-28 pb-24 flex flex-col md:flex-row">
       {/* ===== SIDEBAR ===== */}
       <aside className="w-full md:w-72 bg-background border-r border-border p-6 flex flex-col gap-2 relative z-10 hidden md:flex min-h-[80vh] rounded-tr-3xl">
         {/* Decorative gradient at top */}
@@ -380,7 +380,7 @@ export function AdminDashboard() {
                             <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${statusColors[order.status] || 'bg-muted text-muted-foreground'}`}>
                               {order.status}
                             </span>
-                            <span className="text-sm font-medium">${order.total_amount.toFixed(2)}</span>
+                            <span className="text-sm font-medium">₹{order.total_amount.toFixed(2)}</span>
                           </div>
                         </motion.div>
                       ))}
@@ -437,7 +437,7 @@ export function AdminDashboard() {
                               )}
                             </div>
                           </td>
-                          <td className="p-4 hidden sm:table-cell font-medium">${product.price.toFixed(2)}</td>
+                          <td className="p-4 hidden sm:table-cell font-medium">₹{product.price.toFixed(2)}</td>
                           <td className="p-4 hidden sm:table-cell">
                             <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${product.stock > 10 ? 'badge-success' : product.stock > 0 ? 'badge-warning' : 'badge-danger'
                               }`}>
@@ -503,8 +503,9 @@ export function AdminDashboard() {
                           <td className="p-4">
                             <p className="font-medium">{order.customer_name}</p>
                             <p className="text-xs text-muted-foreground">{order.customer_email}</p>
+                            {order.customer_phone && <p className="text-xs text-muted-foreground">{order.customer_phone}</p>}
                           </td>
-                          <td className="p-4 font-medium">${order.total_amount.toFixed(2)}</td>
+                          <td className="p-4 font-medium">₹{order.total_amount.toFixed(2)}</td>
                           <td className="p-4">
                             <div className="flex items-center gap-2">
                               <div className={`w-2 h-2 rounded-full ${statusDots[order.status] || 'bg-gray-400'} ${(order.status === 'pending' || order.status === 'processing') ? 'animate-pulse' : ''}`} />
@@ -585,7 +586,7 @@ export function AdminDashboard() {
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-medium mb-1 block">Price ($)</label>
+                      <label className="text-sm font-medium mb-1 block">Price (₹)</label>
                       <Input type="number" step="0.01" required value={formData.price} onChange={e => setFormData({ ...formData, price: e.target.value })} className="focus:ring-purple-400 focus:border-purple-400" />
                     </div>
                     <div>

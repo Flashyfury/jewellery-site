@@ -58,7 +58,7 @@ export function ProductDetailsPage() {
   }
 
   return (
-    <div className="w-full min-h-screen bg-background pt-12 pb-24">
+    <div className="w-full min-h-screen bg-background pt-24 md:pt-28 pb-24">
       <div className="container mx-auto px-6">
         <Link to="/shop" className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground mb-8 transition-colors">
           <ArrowLeft className="w-4 h-4 mr-2" />
@@ -102,7 +102,7 @@ export function ProductDetailsPage() {
             )}
             
             <h1 className="text-4xl lg:text-5xl font-serif tracking-tight mb-4">{product.name}</h1>
-            <p className="text-2xl font-medium mb-8">${product.price.toFixed(2)}</p>
+            <p className="text-2xl font-medium mb-8">₹{product.price.toFixed(2)}</p>
             
             <div className="h-[1px] w-full bg-border mb-8"></div>
             
