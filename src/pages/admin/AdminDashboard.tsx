@@ -6,7 +6,6 @@ import { Input } from '../../components/ui/Input'
 import { Trash2, Plus, Edit2, Package, ShoppingBag, LayoutDashboard, TrendingUp, DollarSign, Archive, Sparkles } from 'lucide-react'
 import { toast } from 'sonner'
 import { motion, AnimatePresence } from 'framer-motion'
-import imageCompression from 'browser-image-compression'
 
 const statCards = [
   { key: 'revenue', label: 'Total Revenue', icon: DollarSign, gradient: 'stat-card-purple', glow: 'glow-purple', iconBg: 'from-purple-400 to-indigo-500' },
@@ -86,20 +85,13 @@ export function AdminDashboard() {
 
       if (file) {
 
-        // compress image before upload
-        const compressedFile = await imageCompression(file, {
-          maxSizeMB: 0.3,
-          maxWidthOrHeight: 1200,
-          useWebWorker: true
-        })
-
-        const fileExt = compressedFile.name.split('.').pop()
+        const fileExt = file.name.split('.').pop()
         const fileName = `${Date.now()}-${Math.random()}.${fileExt}`
         const filePath = fileName
 
         const { error: uploadError } = await supabase.storage
           .from('product-images')
-          .upload(filePath, compressedFile)
+          .upload(filePath, file)
 
         if (uploadError) throw uploadError
 
@@ -435,7 +427,7 @@ export function AdminDashboard() {
                         >
                           <td className="p-4 flex items-center gap-4">
                             <div className="w-12 h-12 bg-gradient-to-br from-muted/50 to-muted rounded-xl overflow-hidden flex-shrink-0 border border-border/50">
-                              {product.image_url && <img src={product.image_url} alt={product.name} className="w-full h-full object-cover" />}
+                              {product.image_url && <img src={product.image_url} alt={product.name} className="w-full h-full object-contain" />}
                             </div>
                             <div>
                               <p className="font-medium">{product.name}</p>

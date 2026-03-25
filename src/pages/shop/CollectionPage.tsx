@@ -208,7 +208,7 @@ export function CollectionPage() {
                             alt={product.name}
                             loading="lazy"
                             decoding="async"
-                            className="object-cover w-full h-full transition-transform duration-1000 group-hover:scale-110"
+                            className="object-contain w-full h-full transition-transform duration-1000 group-hover:scale-110"
                           />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center text-muted-foreground font-serif italic text-sm">

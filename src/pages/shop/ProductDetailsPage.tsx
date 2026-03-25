@@ -75,7 +75,7 @@ export function ProductDetailsPage() {
               <img 
                 src={product.image_url} 
                 alt={product.name}
-                className="object-cover w-full h-full"
+                className="object-contain w-full h-full"
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center text-muted-foreground font-serif italic text-xl">

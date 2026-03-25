@@ -112,7 +112,7 @@ export function CheckoutPage() {
                 >
                   <div className="w-24 h-32 rounded-xl bg-muted/20 overflow-hidden flex-shrink-0">
                     {item.image_url ? (
-                      <img src={item.image_url} alt={item.name} className="w-full h-full object-cover" />
+                      <img src={item.image_url} alt={item.name} className="w-full h-full object-contain" />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-xs text-muted-foreground">No img</div>
                     )}
