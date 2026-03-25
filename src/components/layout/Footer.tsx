@@ -18,6 +18,8 @@ export function Footer() {
               <li><Link to="/collections/necklaces" className="hover:text-foreground transition-colors">Necklaces</Link></li>
               <li><Link to="/collections/earrings" className="hover:text-foreground transition-colors">Earrings</Link></li>
               <li><Link to="/collections/bracelets" className="hover:text-foreground transition-colors">Bracelets</Link></li>
+              <li><Link to="/collections/classic-indian" className="hover:text-foreground transition-colors">Classic Indian</Link></li>
+              <li><Link to="/collections/matching-set" className="hover:text-foreground transition-colors">Matching Set</Link></li>
             </ul>
           </div>
           <div>

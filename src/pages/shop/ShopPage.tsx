@@ -80,6 +80,8 @@ export function ShopPage() {
                       <img 
                         src={product.image_url} 
                         alt={product.name}
+                        loading="lazy"
+                        decoding="async"
                         className="object-cover w-full h-full transition-transform duration-1000 group-hover:scale-110"
                       />
                     ) : (

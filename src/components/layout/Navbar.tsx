@@ -1,15 +1,19 @@
 import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
-import { ShoppingBag, Menu, X, ChevronDown, Gem, Sparkles, Star, Circle, Home } from 'lucide-react'
+import { ShoppingBag, Menu, X, ChevronDown, Gem, Sparkles, Star, Circle, Home, Crown, Heart } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useCart } from '../../context/CartContext'
+import { SearchModal } from '../ui/SearchModal'
+import { Search } from 'lucide-react'
 
 const IconMap: Record<string, any> = {
   Gem: Gem,
   Sparkles: Sparkles,
   Star: Star,
-  Circle: Circle
+  Circle: Circle,
+  Crown: Crown,
+  Heart: Heart
 }
 
 export function Navbar() {
@@ -17,6 +21,7 @@ export function Navbar() {
   const isSignedIn = !!user
   const { cartCount } = useCart()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
   const location = useLocation()
   const isHomePage = location.pathname === '/'
 
@@ -29,7 +34,7 @@ export function Navbar() {
     return () => {
       document.body.style.overflow = 'unset'
     }
-  }, [isMobileMenuOpen])
+  }, [isMobileMenuOpen, isSearchOpen])
 
   const navLinks = [
     { name: 'Shop', href: '/shop' },
@@ -41,13 +46,24 @@ export function Navbar() {
     { name: 'Necklaces', href: '/collections/necklaces', icon: 'Sparkles' },
     { name: 'Earrings', href: '/collections/earrings', icon: 'Star' },
     { name: 'Bracelets', href: '/collections/bracelets', icon: 'Circle' },
+    { name: 'Classic Indian', href: '/collections/classic-indian', icon: 'Crown' },
+    { name: 'Matching Set', href: '/collections/matching-set', icon: 'Heart' },
   ]
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 px-3 md:px-6 pt-3 md:pt-4 transition-all duration-500">
       <div className="container mx-auto px-4 md:px-6 h-14 md:h-16 flex justify-between items-center rounded-full bg-amber-950/10 backdrop-blur-2xl border border-amber-400/20 shadow-[0_4px_30px_rgba(212,165,116,0.12)]">
-        {/* Logo & Home Return */}
-        <div className="flex items-center gap-3">
+        {/* Logo        {/* Actions */}
+        <div className="flex items-center gap-1 md:gap-3">
+          {/* Search Button */}
+          <button
+            title="Search"
+            onClick={() => setIsSearchOpen(true)}
+            className="p-2 -mr-1 hover:bg-amber-900/10 hover:text-amber-800 rounded-full transition-colors relative"
+          >
+            <Search className="w-5 h-5" strokeWidth={1.5} />
+          </button>
+
           <Link to="/" className="text-2xl font-serif font-medium tracking-tight hover:opacity-80 transition-opacity z-50">
             Olivia's Exclusive.
           </Link>
@@ -198,6 +214,9 @@ export function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
+      
+      {/* Search Modal */}
+      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </header>
   )
 }

@@ -10,6 +10,8 @@ const heroImages: Record<string, string> = {
   necklaces: '/images/floating_necklace_1772919070657.png',
   earrings: '/images/floating_earrings_1772919189881.png',
   bracelets: '/images/category_ring_2_1772952780620.png',
+  'classic-indian': '/images/classic_indian_premium.png',
+  'matching-set': '/images/matching_set_premium.png',
 }
 
 // Decorative sparkle particle positions
@@ -29,6 +31,8 @@ const categoryGradients = [
   'from-emerald-900/30 via-green-900/10 to-transparent',
   'from-amber-900/30 via-orange-900/10 to-transparent',
   'from-slate-900/30 via-blue-900/10 to-transparent',
+  'from-orange-900/30 via-yellow-900/10 to-transparent',
+  'from-pink-900/30 via-fuchsia-900/10 to-transparent',
 ]
 
 const categoryAccents = [
@@ -36,6 +40,17 @@ const categoryAccents = [
   { border: 'group-hover:border-emerald-800/50', glow: 'group-hover:shadow-[0_0_30px_rgba(6,95,70,0.15)]' },
   { border: 'group-hover:border-amber-700/50', glow: 'group-hover:shadow-[0_0_30px_rgba(180,83,9,0.15)]' },
   { border: 'group-hover:border-slate-700/50', glow: 'group-hover:shadow-[0_0_30px_rgba(51,65,85,0.15)]' },
+  { border: 'group-hover:border-orange-700/50', glow: 'group-hover:shadow-[0_0_30px_rgba(194,65,12,0.15)]' },
+  { border: 'group-hover:border-pink-700/50', glow: 'group-hover:shadow-[0_0_30px_rgba(190,24,93,0.15)]' },
+]
+
+const categoryBgs = [
+  'bg-gradient-to-br from-amber-100 via-stone-100 to-amber-50',
+  'bg-gradient-to-br from-slate-100 via-gray-100 to-neutral-50',
+  'bg-gradient-to-br from-stone-100 via-amber-50 to-yellow-50',
+  'bg-gradient-to-br from-neutral-100 via-stone-100 to-gray-50',
+  'bg-gradient-to-br from-orange-100 via-amber-100 to-yellow-50',
+  'bg-gradient-to-br from-pink-100 via-rose-50 to-fuchsia-50',
 ]
 
 export function HomePage() {
@@ -76,7 +91,7 @@ export function HomePage() {
         {particles.map((p, i) => (
           <motion.div
             key={i}
-            className="absolute rounded-full bg-gradient-to-br from-amber-500/70 to-yellow-600/50"
+            className="absolute rounded-full bg-gradient-to-br from-amber-500/70 to-yellow-600/50 hidden md:block"
             style={{ left: p.x, top: p.y, width: p.size, height: p.size }}
             animate={{
               y: [0, -30, 0],
@@ -101,6 +116,7 @@ export function HomePage() {
           <motion.img
             src="/images/floating_necklace_1772919070657.png"
             alt="Silver Necklace"
+            fetchPriority="high"
             className="absolute top-[15%] left-[5%] w-36 md:w-96 opacity-30 md:opacity-50 mix-blend-multiply object-contain"
             animate={{
               y: [0, -30, 0],
@@ -113,6 +129,7 @@ export function HomePage() {
           <motion.img
             src="/images/floating_earrings_1772919189881.png"
             alt="Gold Earrings"
+            fetchPriority="high"
             className="absolute bottom-[15%] right-[5%] w-32 md:w-80 opacity-25 md:opacity-50 mix-blend-multiply object-contain"
             animate={{
               y: [0, 40, 0],
@@ -125,6 +142,7 @@ export function HomePage() {
           <motion.img
             src="/images/floating_ring_1772919473301.png"
             alt="Diamond Ring"
+            fetchPriority="high"
             className="absolute top-[20%] right-[10%] w-40 md:w-64 opacity-40 mix-blend-multiply object-contain hidden md:block"
             animate={{
               y: [0, 20, 0],
@@ -246,7 +264,7 @@ export function HomePage() {
             </motion.h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
             {categories.length === 0
               ? [...Array(4)].map((_, i) => (
                 <div key={i} className="animate-pulse bg-muted/30 rounded-[2rem] aspect-[3/4]" />
@@ -261,17 +279,19 @@ export function HomePage() {
                 >
                   <Link
                     to={`/collections/${cat.slug}`}
-                    className={`group relative block aspect-[3/4] rounded-[2rem] overflow-hidden border-2 border-transparent transition-all duration-500 ${categoryAccents[i % 4].border} ${categoryAccents[i % 4].glow}`}
+                    className={`group relative block aspect-[3/4] rounded-[2rem] overflow-hidden border-2 border-transparent transition-all duration-500 ${categoryBgs[i % 6]} ${categoryAccents[i % 6].border} ${categoryAccents[i % 6].glow}`}
                   >
                     {/* Image */}
                     <img
                       src={cat.hero_image_url || heroImages[cat.slug] || ''}
                       alt={cat.name}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover mix-blend-multiply transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
                     />
 
                     {/* Gradient color overlay */}
-                    <div className={`absolute inset-0 bg-gradient-to-t ${categoryGradients[i % 4]} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                    <div className={`absolute inset-0 bg-gradient-to-t ${categoryGradients[i % 6]} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
                     {/* Dark gradient at bottom */}
                     <div className="absolute inset-0 category-card-overlay" />

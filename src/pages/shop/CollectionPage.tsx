@@ -9,10 +9,12 @@ import { ChevronRight } from 'lucide-react'
 
 // Static hero images keyed by slug (used as fallback / aesthetic bg)
 const heroImages: Record<string, string> = {
-  rings:      '/images/category_ring_1_1772952763774.png',
-  necklaces:  '/images/floating_necklace_1772919070657.png',
-  earrings:   '/images/floating_earrings_1772919189881.png',
-  bracelets:  '/images/category_ring_2_1772952780620.png',
+  rings:            '/images/category_ring_1_1772952763774.png',
+  necklaces:        '/images/floating_necklace_1772919070657.png',
+  earrings:         '/images/floating_earrings_1772919189881.png',
+  bracelets:        '/images/category_ring_2_1772952780620.png',
+  'classic-indian': '/images/classic_indian_premium.png',
+  'matching-set':   '/images/matching_set_premium.png',
 }
 
 const defaultHeroBg = 'from-stone-50 via-neutral-50 to-gray-50'
@@ -204,6 +206,8 @@ export function CollectionPage() {
                           <img
                             src={product.image_url}
                             alt={product.name}
+                            loading="lazy"
+                            decoding="async"
                             className="object-cover w-full h-full transition-transform duration-1000 group-hover:scale-110"
                           />
                         ) : (
