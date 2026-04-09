@@ -47,7 +47,7 @@ npm start
 Anshu Naskar
 
 📧 Email: lmcxfury9@gmail.com
-🔗 LinkedIn: (Add your link)
+
 📜 License
 
 This project is open-source and available under the MIT License.
