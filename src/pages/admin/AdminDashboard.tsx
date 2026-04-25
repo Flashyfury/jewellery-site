@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Fragment } from 'react'
 import { supabase } from '../../lib/supabase'
 import type { Product, Order, Category } from '../../types'
 import { Button } from '../../components/ui/Button'
 import { Input } from '../../components/ui/Input'
-import { Trash2, Plus, Edit2, Package, ShoppingBag, LayoutDashboard, TrendingUp, DollarSign, Archive, Sparkles } from 'lucide-react'
+import { Trash2, Plus, Edit2, Package, ShoppingBag, LayoutDashboard, TrendingUp, DollarSign, Archive, Sparkles, ChevronDown, ChevronUp } from 'lucide-react'
 import { toast } from 'sonner'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -35,6 +35,7 @@ export function AdminDashboard() {
   const [orders, setOrders] = useState<Order[]>([])
   const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
+  const [expandedOrderId, setExpandedOrderId] = useState<string | null>(null)
 
   // Product Form State
   const [isProductModalOpen, setIsProductModalOpen] = useState(false)
@@ -59,7 +60,7 @@ export function AdminDashboard() {
     try {
       const [productsRes, ordersRes, categoriesRes] = await Promise.all([
         supabase.from('products').select('*, category:categories(*)').order('created_at', { ascending: false }),
-        supabase.from('orders').select('*').order('created_at', { ascending: false }),
+        supabase.from('orders').select('*, order_items(*, product:products(*))').order('created_at', { ascending: false }),
         supabase.from('categories').select('*').order('sort_order', { ascending: true })
       ])
 
@@ -489,6 +490,7 @@ export function AdminDashboard() {
                   <table className="w-full text-left text-sm">
                     <thead className="bg-gradient-to-r from-muted/50 to-muted/30 border-b border-border font-medium">
                       <tr>
+                        <th className="p-4 w-10"></th>
                         <th className="p-4">Order ID</th>
                         <th className="p-4">Customer</th>
                         <th className="p-4">Total</th>
@@ -497,40 +499,85 @@ export function AdminDashboard() {
                     </thead>
                     <tbody className="divide-y divide-border">
                       {orders.map((order, i) => (
-                        <motion.tr
-                          key={order.id}
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: i * 0.05 }}
-                          className="table-row-interactive"
-                        >
-                          <td className="p-4 font-mono text-xs text-muted-foreground">{order.id.split('-')[0]}...</td>
-                          <td className="p-4">
-                            <p className="font-medium">{order.customer_name}</p>
-                            <p className="text-xs text-muted-foreground">{order.customer_email}</p>
-                            {order.customer_phone && <p className="text-xs text-muted-foreground">{order.customer_phone}</p>}
-                          </td>
-                          <td className="p-4 font-medium">₹{order.total_amount.toFixed(2)}</td>
-                          <td className="p-4">
-                            <div className="flex items-center gap-2">
-                              <div className={`w-2 h-2 rounded-full ${statusDots[order.status] || 'bg-gray-400'} ${(order.status === 'pending' || order.status === 'processing') ? 'animate-pulse' : ''}`} />
-                              <select
-                                value={order.status}
-                                onChange={(e) => handleUpdateOrderStatus(order.id, e.target.value)}
-                                className="bg-transparent border border-border rounded-lg text-xs px-2 py-1 focus:ring-accent outline-none"
-                              >
-                                <option value="pending">Pending</option>
-                                <option value="processing">Processing</option>
-                                <option value="shipped">Shipped</option>
-                                <option value="delivered">Delivered</option>
-                                <option value="cancelled">Cancelled</option>
-                              </select>
-                            </div>
-                          </td>
-                        </motion.tr>
+                        <Fragment key={order.id}>
+                          <motion.tr
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: i * 0.05 }}
+                            className="table-row-interactive hover:bg-muted/30 cursor-pointer"
+                            onClick={() => setExpandedOrderId(expandedOrderId === order.id ? null : order.id)}
+                          >
+                            <td className="p-4 text-muted-foreground">
+                              {expandedOrderId === order.id ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                            </td>
+                            <td className="p-4 font-mono text-xs text-muted-foreground">{order.id.split('-')[0]}...</td>
+                            <td className="p-4">
+                              <p className="font-medium">{order.customer_name}</p>
+                              <p className="text-xs text-muted-foreground">{order.customer_email}</p>
+                              {order.customer_phone && <p className="text-xs text-muted-foreground">{order.customer_phone}</p>}
+                            </td>
+                            <td className="p-4 font-medium">₹{order.total_amount.toFixed(2)}</td>
+                            <td className="p-4" onClick={(e) => e.stopPropagation()}>
+                              <div className="flex items-center gap-2">
+                                <div className={`w-2 h-2 rounded-full ${statusDots[order.status] || 'bg-gray-400'} ${(order.status === 'pending' || order.status === 'processing') ? 'animate-pulse' : ''}`} />
+                                <select
+                                  value={order.status}
+                                  onChange={(e) => handleUpdateOrderStatus(order.id, e.target.value)}
+                                  className="bg-transparent border border-border rounded-lg text-xs px-2 py-1 focus:ring-accent outline-none"
+                                >
+                                  <option value="pending">Pending</option>
+                                  <option value="processing">Processing</option>
+                                  <option value="shipped">Shipped</option>
+                                  <option value="delivered">Delivered</option>
+                                  <option value="cancelled">Cancelled</option>
+                                </select>
+                              </div>
+                            </td>
+                          </motion.tr>
+                          {expandedOrderId === order.id && (
+                            <tr className="bg-muted/10">
+                              <td colSpan={5} className="p-0 border-b border-border">
+                                <motion.div 
+                                  initial={{ height: 0, opacity: 0 }}
+                                  animate={{ height: "auto", opacity: 1 }}
+                                  exit={{ height: 0, opacity: 0 }}
+                                  className="p-4 px-12 overflow-hidden"
+                                >
+                                  <h4 className="text-sm font-semibold mb-3">Order Items</h4>
+                                  {order.order_items && order.order_items.length > 0 ? (
+                                    <div className="space-y-3">
+                                      {order.order_items.map(item => (
+                                        <div key={item.id} className="flex items-center gap-4 py-2 border-b border-border/50 last:border-0">
+                                          {item.product?.image_url ? (
+                                            <div className="w-10 h-10 rounded-lg overflow-hidden border border-border flex-shrink-0 bg-white">
+                                              <img src={item.product.image_url} alt={item.product.name} className="w-full h-full object-contain" />
+                                            </div>
+                                          ) : (
+                                            <div className="w-10 h-10 rounded-lg border border-border bg-muted flex items-center justify-center flex-shrink-0">
+                                              <ShoppingBag className="w-4 h-4 text-muted-foreground" />
+                                            </div>
+                                          )}
+                                          <div className="flex-1 min-w-0">
+                                            <p className="text-sm font-medium truncate">{item.product?.name || 'Unknown Product'}</p>
+                                            <p className="text-xs text-muted-foreground">Qty: {item.quantity}</p>
+                                          </div>
+                                          <div className="text-sm font-medium text-right">
+                                            ₹{(item.price_at_time * item.quantity).toFixed(2)}
+                                          </div>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  ) : (
+                                    <p className="text-sm text-muted-foreground italic">No items found for this order.</p>
+                                  )}
+                                </motion.div>
+                              </td>
+                            </tr>
+                          )}
+                        </Fragment>
                       ))}
                       {orders.length === 0 && (
-                        <tr><td colSpan={4} className="p-8 text-center text-muted-foreground italic">No orders yet.</td></tr>
+                        <tr><td colSpan={5} className="p-8 text-center text-muted-foreground italic">No orders yet.</td></tr>
                       )}
                     </tbody>
                   </table>

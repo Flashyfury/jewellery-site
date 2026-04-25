@@ -31,6 +31,7 @@ export interface Order {
   total_amount: number;
   status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
   created_at: string;
+  order_items?: (OrderItem & { product?: Product })[];
 }
 
 export interface OrderItem {
