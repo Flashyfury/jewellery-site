@@ -30,7 +30,7 @@ const statusDots: Record<string, string> = {
 }
 
 export function AdminDashboard() {
-  const [activeTab, setActiveTab] = useState<'overview' | 'products' | 'orders'>('overview')
+    const [activeTab, setActiveTab] = useState<'overview' | 'products' | 'orders'>('overview')
   const [products, setProducts] = useState<Product[]>([])
   const [orders, setOrders] = useState<Order[]>([])
   const [categories, setCategories] = useState<Category[]>([])
@@ -209,6 +209,7 @@ export function AdminDashboard() {
     })
     setIsProductModalOpen(true)
   }
+
 
   const tabs = [
     { id: 'overview' as const, label: 'Overview', icon: LayoutDashboard },
@@ -584,6 +585,7 @@ export function AdminDashboard() {
                 </div>
               </motion.div>
             )}
+
           </AnimatePresence>
         )}
       </main>
@@ -687,6 +689,8 @@ export function AdminDashboard() {
           </motion.div>
         )}
       </AnimatePresence>
+
     </div>
   )
 }
+

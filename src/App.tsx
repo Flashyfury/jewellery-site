@@ -8,6 +8,7 @@ import { ShopPage } from './pages/shop/ShopPage'
 import { ProductDetailsPage } from './pages/shop/ProductDetailsPage'
 import { CheckoutPage } from './pages/shop/CheckoutPage'
 import { CollectionPage } from './pages/shop/CollectionPage'
+import { OurStoryPage } from './pages/shop/OurStoryPage'
 import { SignInPage } from './pages/auth/SignInPage'
 import { AdminDashboard } from './pages/admin/AdminDashboard'
 import { AdminRoute } from './components/layout/AdminRoute'
@@ -38,6 +39,7 @@ function App() {
                 <Route path="/shop/:id" element={<ProductDetailsPage />} />
                 <Route path="/checkout" element={<CheckoutPage />} />
                 <Route path="/collections/:category" element={<CollectionPage />} />
+                <Route path="/our-story" element={<OurStoryPage />} />
                 <Route path="/sign-in" element={<SignInPage />} />
                 
                 {/* Admin Routes */}

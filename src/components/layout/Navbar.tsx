@@ -38,7 +38,7 @@ export function Navbar() {
 
   const navLinks = [
     { name: 'Shop', href: '/shop' },
-    { name: 'About', href: '/about' },
+    { name: 'Our Story', href: '/our-story' },
   ]
 
   const collectionLinks = [

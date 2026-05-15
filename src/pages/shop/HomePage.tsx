@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { useState, useEffect, useRef } from 'react'
 import { supabase } from '../../lib/supabase'
 import type { Category } from '../../types'
-import { Sparkles, ArrowRight, Diamond, Star, Gem, Leaf, Shield } from 'lucide-react'
+import { ArrowRight, Gem, Leaf, Shield, Star, Droplets, Heart, ShieldCheck, Zap } from 'lucide-react'
 
 const heroImages: Record<string, string> = {
   rings: '/images/category_ring_1_1772952763774.png',
@@ -14,17 +14,7 @@ const heroImages: Record<string, string> = {
   'matching-set': '/images/matching_set_premium.png',
 }
 
-// Decorative sparkle particle positions
-const particles = [
-  { x: '10%', y: '20%', delay: 0, size: 6 },
-  { x: '85%', y: '15%', delay: 1.2, size: 4 },
-  { x: '70%', y: '65%', delay: 0.5, size: 8 },
-  { x: '25%', y: '75%', delay: 2, size: 5 },
-  { x: '55%', y: '30%', delay: 1.8, size: 3 },
-  { x: '90%', y: '80%', delay: 0.8, size: 6 },
-  { x: '15%', y: '50%', delay: 1.5, size: 4 },
-  { x: '40%', y: '85%', delay: 2.5, size: 7 },
-]
+
 
 const categoryGradients = [
   'from-rose-900/30 via-red-900/10 to-transparent',
@@ -77,161 +67,95 @@ export function HomePage() {
       <motion.section
         ref={heroRef}
         style={{ opacity: heroOpacity }}
-        className="relative min-h-[100dvh] md:min-h-[90vh] flex items-center justify-center overflow-hidden pt-16 md:pt-20"
+        className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden bg-rose-50/30"
       >
-        {/* Animated gradient background */}
-        <div className="absolute inset-0 animated-gradient-bg" />
+        {/* Editorial Background Image */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-b from-rose-50/90 via-rose-50/50 to-rose-50/90 z-10" />
+          <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/40 to-transparent z-10" />
+          <motion.img
+            src="/images/Oliviaexclusive_coverpic.png"
+            alt="Olivia's Exclusive Background"
+            className="w-full h-full object-cover opacity-80 mix-blend-multiply"
+            style={{ scale: heroScale }}
+          />
+        </div>
 
-        {/* Radial color accents - Deep Indian Jewel Tones */}
-        <div className="absolute top-[-20%] left-[-10%] w-[300px] md:w-[600px] h-[300px] md:h-[600px] rounded-full bg-gradient-to-br from-rose-900/15 to-red-950/10 blur-3xl opacity-70" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[250px] md:w-[500px] h-[250px] md:h-[500px] rounded-full bg-gradient-to-br from-amber-700/15 to-orange-900/10 blur-3xl opacity-60" />
-        <div className="absolute top-[40%] right-[20%] w-[150px] md:w-[300px] h-[150px] md:h-[300px] rounded-full bg-gradient-to-br from-emerald-900/15 to-teal-950/10 blur-3xl opacity-70" />
-
-        {/* Floating sparkle particles */}
-        {particles.map((p, i) => (
+        {/* Hero Content (Editorial Style) */}
+        <div className="container relative z-20 mx-auto px-5 md:px-6 pt-32 pb-20 flex flex-col items-center md:items-start text-center md:text-left">
           <motion.div
-            key={i}
-            className="absolute rounded-full bg-gradient-to-br from-amber-500/70 to-yellow-600/50 hidden md:block"
-            style={{ left: p.x, top: p.y, width: p.size, height: p.size }}
-            animate={{
-              y: [0, -30, 0],
-              x: [0, 10, -10, 0],
-              opacity: [0.3, 0.8, 0.3],
-              scale: [0.8, 1.3, 0.8],
-            }}
-            transition={{
-              duration: 4 + i * 0.5,
-              repeat: Infinity,
-              ease: 'easeInOut',
-              delay: p.delay,
-            }}
-          />
-        ))}
-
-        {/* Gradient overlay to background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background z-10" />
-
-        {/* Floating Jewelry Images */}
-        <motion.div style={{ scale: heroScale }} className="absolute inset-0 z-0">
-          <motion.img
-            src="/images/floating_necklace_1772919070657.png"
-            alt="Silver Necklace"
-            fetchPriority="high"
-            className="absolute top-[15%] left-[5%] w-36 md:w-96 opacity-30 md:opacity-50 mix-blend-multiply object-contain"
-            animate={{
-              y: [0, -30, 0],
-              x: [0, 15, 0],
-              rotate: [0, 5, 0],
-            }}
-            transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-          />
-
-          <motion.img
-            src="/images/floating_earrings_1772919189881.png"
-            alt="Gold Earrings"
-            fetchPriority="high"
-            className="absolute bottom-[15%] right-[5%] w-32 md:w-80 opacity-25 md:opacity-50 mix-blend-multiply object-contain"
-            animate={{
-              y: [0, 40, 0],
-              x: [0, -20, 0],
-              rotate: [0, -10, 0],
-            }}
-            transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-          />
-
-          <motion.img
-            src="/images/floating_ring_1772919473301.png"
-            alt="Diamond Ring"
-            fetchPriority="high"
-            className="absolute top-[20%] right-[10%] w-40 md:w-64 opacity-40 mix-blend-multiply object-contain hidden md:block"
-            animate={{
-              y: [0, 20, 0],
-              x: [0, 20, 0],
-              rotate: [0, 15, 0],
-            }}
-            transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-          />
-        </motion.div>
-
-        {/* Hero Content */}
-        <div className="container relative z-20 mx-auto px-5 md:px-6 py-10 md:py-20 flex flex-col items-center text-center">
-          {/* Animated badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="flex items-center gap-2 px-4 md:px-6 py-2 md:py-2.5 rounded-full glass mb-6 md:mb-8 border border-amber-600/30 bg-background/40 backdrop-blur-md"
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col items-center md:items-start w-full max-w-3xl"
           >
-            <Sparkles className="w-4 h-4 text-amber-600" />
-            <span className="text-[10px] md:text-xs font-semibold tracking-[0.2em] md:tracking-[0.3em] uppercase text-foreground/90">Heritage Collection</span>
-            <Sparkles className="w-4 h-4 text-amber-600" />
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
-            animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-            transition={{ duration: 1, delay: 0.2, ease: 'easeOut' }}
-            className="text-[2.5rem] leading-[1.15] sm:text-5xl md:text-7xl lg:text-8xl md:leading-[1.1] font-serif mb-5 md:mb-8 max-w-4xl tracking-tight text-foreground"
-          >
-            Elegance Rooted in <br />
-            <span className="bg-gradient-to-r from-amber-700 via-yellow-600 to-amber-700 bg-clip-text text-transparent italic font-light drop-shadow-sm">Tradition.</span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.5 }}
-            className="max-w-xl mx-auto text-base md:text-xl mb-8 md:mb-12 text-muted-foreground font-light leading-relaxed px-2 md:px-0"
-          >
-            Intricate karigari meets timeless sophistication. Fine jewelry born from deep-rooted cultural heritage and masterful craftsmanship.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.7 }}
-            className="flex flex-col sm:flex-row gap-3 md:gap-4 w-full sm:w-auto"
-          >
-            <Link
-              to="/shop"
-              className="group relative inline-flex items-center justify-center gap-3 px-8 md:px-12 py-4 md:py-5 font-medium text-white bg-gradient-to-r from-foreground via-foreground to-foreground/90 rounded-full overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_60px_-15px_rgba(212,165,116,0.4)]"
+            {/* Elegant Badge */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 1 }}
+              className="mb-8 flex items-center gap-4"
             >
-              <span className="absolute inset-0 bg-gradient-to-r from-amber-600/20 via-purple-600/20 to-pink-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <span className="relative flex items-center gap-2 text-neutral-900 text-sm md:text-base">
-                Shop The Drop
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <div className="h-[1px] w-8 md:w-12 bg-rose-300" />
+              <span className="text-[10px] md:text-xs font-medium tracking-[0.4em] uppercase text-rose-900/70">
+                Olivia's Exclusive
               </span>
-            </Link>
-            <Link
-              to="/collections/rings"
-              className="group inline-flex items-center justify-center gap-2 px-8 md:px-10 py-4 md:py-5 font-medium text-foreground rounded-full border border-border/60 hover:border-amber-700/50 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_10px_40px_-10px_rgba(180,83,9,0.2)] glass bg-background/50 backdrop-blur-sm text-sm md:text-base"
-            >
-              <Diamond className="w-4 h-4 text-amber-700 group-hover:rotate-12 transition-transform" />
-              Explore Collections
-            </Link>
-          </motion.div>
+              <div className="h-[1px] w-8 md:w-12 bg-rose-300 hidden md:block" />
+            </motion.div>
 
-          {/* Trust indicators */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1.2 }}
-            className="flex flex-wrap items-center justify-center gap-4 md:gap-6 mt-10 md:mt-16 text-[10px] md:text-xs text-muted-foreground/70 uppercase tracking-wider md:tracking-widest"
-          >
-            <div className="flex items-center gap-1.5">
-              <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
-              <span>Handcrafted</span>
+            {/* Cinematic Headline */}
+            <h1 className="text-[3.5rem] sm:text-6xl md:text-7xl lg:text-[5.5rem] leading-[1.05] font-serif mb-8 tracking-tight text-neutral-900">
+              Timeless Shine, <br />
+              <span className="italic font-light text-rose-800/90">Everyday You.</span>
+            </h1>
+
+            {/* Refined Description */}
+            <p className="max-w-2xl text-base md:text-xl mb-14 text-neutral-600 font-light leading-relaxed tracking-wide">
+              Premium handcrafted jewelry designed to resist discoloration, moisture, and sweat. Experience flawless radiance that lasts.
+            </p>
+
+            {/* Action Buttons - Minimalist */}
+            <div className="flex flex-col sm:flex-row gap-6 justify-center md:justify-start items-center w-full sm:w-auto mb-20">
+              <Link
+                to="/shop"
+                className="group relative inline-flex items-center justify-center px-12 py-4 md:py-5 font-medium text-white bg-neutral-900 overflow-hidden transition-all duration-500 hover:bg-rose-900"
+              >
+                <span className="relative flex items-center gap-3 text-sm tracking-[0.2em] uppercase">
+                  Discover Collection
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-500" />
+                </span>
+              </Link>
+              <Link
+                to="/our-story"
+                className="group inline-flex items-center justify-center px-12 py-4 md:py-5 font-medium text-neutral-900 border border-neutral-900/20 hover:border-neutral-900 transition-all duration-500 bg-transparent"
+              >
+                <span className="text-sm tracking-[0.2em] uppercase">
+                  Our Heritage
+                </span>
+              </Link>
             </div>
-            <div className="w-1 h-1 rounded-full bg-border" />
-            <div className="flex items-center gap-1.5">
-              <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
-              <span>Ethically Sourced</span>
-            </div>
-            <div className="w-1 h-1 rounded-full bg-border" />
-            <div className="flex items-center gap-1.5">
-              <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
-              <span>Minimal Shipping Charge</span>
-            </div>
+
+            {/* Minimalist Feature Bar */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 1 }}
+              className="flex flex-wrap justify-center md:justify-start gap-8 md:gap-12 lg:gap-16 w-full pt-10 border-t border-rose-200/50"
+            >
+              {[
+                { icon: Droplets, label: 'Waterproof' },
+                { icon: Zap, label: 'Sweat Proof' },
+                { icon: ShieldCheck, label: 'Anti Tarnish' },
+                { icon: Heart, label: 'Hypoallergenic' },
+              ].map((feature, i) => (
+                <div key={i} className="flex items-center gap-3 group">
+                  <feature.icon className="w-4 h-4 text-rose-400 group-hover:text-rose-600 transition-colors duration-500" strokeWidth={1.5} />
+                  <span className="text-[10px] md:text-xs font-medium uppercase tracking-[0.2em] text-neutral-500 group-hover:text-neutral-900 transition-colors duration-500">
+                    {feature.label}
+                  </span>
+                </div>
+              ))}
+            </motion.div>
           </motion.div>
         </div>
       </motion.section>
@@ -250,7 +174,7 @@ export function HomePage() {
               transition={{ duration: 0.5 }}
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-100 to-orange-50 border border-amber-200/50 mb-6"
             >
-              <Sparkles className="w-3 h-3 text-amber-500" />
+              <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
               <span className="text-xs font-semibold tracking-[0.3em] uppercase text-amber-700">Shop by Category</span>
             </motion.div>
             <motion.h2

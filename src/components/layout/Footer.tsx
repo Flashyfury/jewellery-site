@@ -37,7 +37,15 @@ export function Footer() {
             <Link to="/terms" className="hover:text-foreground transition-colors">Terms of Service</Link>
           </div>
           <div className="flex items-center gap-4 text-sm text-muted-foreground font-medium">
-            <span>© {new Date().getFullYear()} Olivia's Exclusive. Made with ❤️ by lmcxfury9@gmail.com</span>
+            <span>© {new Date().getFullYear()} Olivia's Exclusive. Made with ❤️ by {" "}
+              <a href="https://portfolio-weld-zeta-85.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold text-foreground hover:text-rose-600 transition-colors underline underline-offset-4 relative z-50 cursor-pointer pointer-events-auto"
+              >
+                fury
+              </a>
+            </span>
             <Link to="/sign-in" className="hover:text-foreground transition-colors mix-blend-multiply opacity-50">Admin</Link>
           </div>
         </div>

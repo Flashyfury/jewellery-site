@@ -41,3 +41,13 @@ export interface OrderItem {
   quantity: number;
   price_at_time: number;
 }
+
+export interface Blog {
+  id: string;
+  title: string;
+  slug: string;
+  content: string;
+  image_url?: string;
+  published: boolean;
+  created_at?: string;
+}
